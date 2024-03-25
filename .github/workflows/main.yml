@@ -25,8 +25,8 @@ jobs:
     - name: Add numbers dynamically
       run: |
         # Retrieve input numbers
-        number1=${{ github.event.inputs.number1 }}
-        number2=${{ github.event.inputs.number2 }}
+        number1="${{ github.event.inputs.number1 }}"
+        number2="${{ github.event.inputs.number2 }}"
         
         # Perform addition
         sum=$((number1 + number2))
