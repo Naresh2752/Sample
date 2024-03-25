@@ -1,0 +1,35 @@
+name: Add Numbers
+
+on:
+  workflow_dispatch:
+    inputs:
+      number1:
+        description: 'First number to add'
+        required: true
+        default: 5
+      number2:
+        description: 'Second number to add'
+        required: true
+        default: 10
+
+jobs:
+  add_numbers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Add numbers dynamically
+      run: |
+        # Retrieve input numbers
+        number1=${{ github.event.inputs.number1 }}
+        number2=${{ github.event.inputs.number2 }}
+        
+        # Perform addition
+        sum=$((number1 + number2))
+        
+        # Output the result
+        echo "The sum of $number1 and $number2 is $sum"
