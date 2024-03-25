@@ -6,11 +6,9 @@ on:
       number1:
         description: 'First number to add'
         required: true
-        default: 5
       number2:
         description: 'Second number to add'
         required: true
-        default: 10
 
 jobs:
   add_numbers:
