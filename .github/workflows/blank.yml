@@ -2,7 +2,7 @@ name: "pega-github-custom-task"
 
 on:
   workflow_dispatch:
-	inputs:
+  	inputs:
 	  CallBackURL:
 	    description: "PDM CallBack URL"
 	    required:true
