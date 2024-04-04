@@ -1,4 +1,4 @@
-name: Add Numbers
+name: Pega
 
 on:
   workflow_dispatch:
