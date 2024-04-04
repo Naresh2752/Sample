@@ -1,4 +1,4 @@
-name: "pega-github-custom-task"
+name: Add Numbers
 
 on:
   workflow_dispatch:
