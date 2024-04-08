@@ -36,8 +36,8 @@ jobs:
           CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
           authResponse=$(curl --location -g --request POST "${{ inputs.OrchestratorURL }}/PRRestService/oauth2/v1/token" \
             --header 'Content-Type: application/x-www-form-urlencoded' \
-            --data-urlencode 'client_id=${{ secrets.ID }}' \
-            --data-urlencode 'client_secret=${{ secrets.SECRET }}' \
+            --data-urlencode 'client_id=68656303360243191598' \
+            --data-urlencode 'client_secret=20D0D148D126D67472C2DDBB25222F8C' \
             --data-urlencode 'grant_type=client_credentials')
           
           echo "$authResponse"
