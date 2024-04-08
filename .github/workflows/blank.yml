@@ -39,6 +39,7 @@ jobs:
             --data-urlencode 'client_id=${{ secrets.ID }}' \
             --data-urlencode 'client_secret=${{ secrets.SECRET }}' \
             --data-urlencode 'grant_type=client_credentials')
+          echo "$client_id"
           echo "$authResponse"
           authToken=$(echo "$authResponse" | jq -j ".access_token")
           echo "$authToken"
