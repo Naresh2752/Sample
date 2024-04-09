@@ -34,9 +34,7 @@ jobs:
       - name: Update Pega DM Task
         run: |
           CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
-          authResponse=$(echo "${{ inputs.AuthResponse }}")
-          echo "$authResponse"
-          authToken=$(echo "$authResponse" | jq -j ".access_token")
+          authToken=$(echo "${{ inputs.AuthResponse }}")
           echo "$authToken"
           updateTaskResponse=$(curl --location --request PUT "$CallBackURL" \
             --header "Authorization: Bearer $authToken" \
