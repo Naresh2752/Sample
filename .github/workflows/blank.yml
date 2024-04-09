@@ -9,9 +9,9 @@ on:
       OrchestratorURL:
         description: "URL on which the GitHub task is configured"
         required: true
-      PipelineName:
+      AuthResponse:
         description: "Pipeline name on which the GitHub task is configured"
-        required: true
+        required: false
       TEST_SUITE_NAME:
         description: "Automation test suite (testing xml) to be executed"
         required: false
@@ -34,11 +34,7 @@ jobs:
       - name: Update Pega DM Task
         run: |
           CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
-          authResponse="{
-    "access_token": "eyJraWQiOiIxYzc5NDc0M2MyOWNhOWMwMTk2MjI3N2I2Mzk5MWFjOSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJhdWQiOiJ1cm46Njg2NTYzMDMzNjAyNDMxOTE1OTgiLCJzdWIiOiJETUFnZW50VXNlciIsImFwcF9uYW1lIjoiUGVnYURlcGxveW1lbnRNYW5hZ2VyIiwibmJmIjoxNzEyNjQ1NzUzLCJhcHBfdmVyc2lvbiI6IjUiLCJpc3MiOiJ1cm46MTAuNjQuMjUzLjE5MSIsImV4cCI6MTcxMjY0NTkzMywiaWF0IjoxNzEyNjQ1NzUzLCJqdGkiOiI3ZmU5MTFkODRkMTRhYWUwMjg5MDRmZGJmNDlkODE4NiIsIm9wZXJhdG9yX2FjY2VzcyI6IlN1cGVyQWRtaW4ifQ.Poe3wCKUmMOtzMcdFwVfPSl0emq7U7PEIq1fLYLf2IlY5Huw7yStFA_d_K_QgQJ_-Uz9dwYBGncIm0cLs2ZErosNlMBQ8ty0O6f-Ubl07EbmryhSuih3rR_3jerMwWp8U1nmw0ZhwT_PdREORkudHH_ZkBdP0mCufGpo_yrb85SXbpdgtZ1H0Vjzurc_2kEleVeHHlAas3fYz8n-J3kHTwIef7C0q2psUyzTcuYhpzW_KvBGGUIbKdo7ocQ4V_C8vKqH0zeQID5hV-PvxuUSpArT_HYe88OGfkQ8oWChZ6gFcYOElgtupPGGf6xUc-zAWEAEt4quwqVROeedSf58sRbkbj_zKY0096k8wIDoslBW9cwBDVQu2LnRqXSwQj-ouMPWNWVOSqFrtpZQM0GxuzphUTuO0HFY6OEVrx3cFYStxczjEDITKQBNi6t4_R8MppCh43zhmrLnsZVzICKVxu7gdZq7mSI9hwBsCHSZn_XDeRiK5-CKEi9kxGbyi2pJjFo6kontIHGo3Ws1X75Sz1FdaE1ZGwVkYgGDSvkTZeMbyEy9BS6K0L-cBOkd2DpuUTeQlaY7I1_zhMEt6PgJnt5vNNnfPOWBxVr0ubxVAPbJFfvsBmwNDWbPBxpZLEKwckG1tVuhvX-YKa2a47Dm8qFOTmNfNHCcGSyqizt67NU",
-    "token_type": "bearer",
-    "expires_in": 180
-}"
+          authResponse=$(echo "${{ inputs.AuthResponse }}")
           echo "$authResponse"
           authToken=$(echo "$authResponse" | jq -j ".access_token")
           echo "$authToken"
