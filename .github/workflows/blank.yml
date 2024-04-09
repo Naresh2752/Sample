@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "CallBackURL: ${{ inputs.CallBackURL }}"
           echo "OrchestratorURL: ${{ inputs.OrchestratorURL }}"
-          echo "PipelineName: ${{ inputs.PipelineName }}"
+          echo "AuthResponse: ${{ inputs.AuthResponse }}"
           echo "TEST_SUITE_NAME: ${{ inputs.TEST_SUITE_NAME }}"
           echo "BROWSER: ${{ inputs.BROWSER }}"
 
