@@ -2,64 +2,63 @@ name: "pega-github-custom-task"
 
 on:
   workflow_dispatch:
-  inputs:
-	CallBackURL:
-	    description: "PDM CallBack URL"
-	    required: true
-	OrchestratorURL:
-	    description: "URL on which the GithHub task"
-	    required: false
-	PipelineName:
-	    description: "Pipeline name on which the GithHub task is configured"
-	    required: true
-	TEST_SUITE_NAME:
-	    description: "Automation test suite (testing xml) to be executed"
-	    required: false
-	BROWSER:
-	    description: Browser Name
-	    required: false
+    inputs:
+      CallBackURL:
+        description: "PDM CallBack URL"
+        required: true
+      OrchestratorURL:
+        description: "URL on which the GithHub task"
+        required: false
+      PipelineName:
+        description: "Pipeline name on which the GithHub task is configured"
+        required: true
+      TEST_SUITE_NAME:
+        description: "Automation test suite (testing xml) to be executed"
+        required: false
+      BROWSER:
+        description: "Browser Name"
+        required: false
 
 jobs:
   pega-github-custom-task:
     runs-on: ubuntu-latest
     steps:
-    - name: Print all the parameters
-      run:
-
-	echo "CallBackURL: ${{ inputs.CallBackURL }}"
-	echo "OrchestratorURL: ${{ inputs.OrchestratorURL }}"
-	echo "PipelineName: ${{ inputs.PipelineName }}"
-	echo "TEST_SUITE_NAME: ${{inputs.TEST_SUITE_NAME }}"
-	echo "BROWSER: ${{ inputs.BROWSER }}"
-    - name: Update Pega DM Task
-      run:
-	CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
-	authResponse=$(curl --location -g --request POST "${{ inputs.OrchestratorURL }}/PRRestService/oauth2/v1/token" \
-	--header 'Content-Type: application/x-www-form-urlencoded' \
-	--data-urlencode 'client_id=${{ secrets.ID}}' \
-	--data-urlencode 'client_secret=${{ secrets.SECRET}}' \
-	--data-urlencode 'grant_type=client_credentials')
-	echo $authResponse
-	authToken=$(echo $authResponse | jq -j ".access_token")
-	echo $authToken
-	updateTaskResponse=$(curl --location --request PUT "$CallBackURL" \
-	  --header "Authorization: Bearer $authToken" \
-	  --header 'Content-Type: application/json' \
-	  --data-raw '{
-	    "taskStatus": "Resolved-Completed",
-	    "taskInfo": {
-		"outputParameters": [
-		  {
-		    "name": "BuildNumber",
-		    "type": "Text",
-		    "value": "${{ github.run_number }}"
-		  },
-		  {
-		    "name": "GitHubBuildURL",
-		    "type": "Text",
-		    "value": "${{ github.server_url }]/${{ github.repository }}/actions/runs/${{github.run_id }}"
-		  }
-		]
-		}
-	     }')
-	echo "updateTaskResponse: $updateTaskResponse";
+      - name: Print all the parameters
+        run: |
+          echo "CallBackURL: ${{ inputs.CallBackURL }}"
+          echo "OrchestratorURL: ${{ inputs.OrchestratorURL }}"
+          echo "PipelineName: ${{ inputs.PipelineName }}"
+          echo "TEST_SUITE_NAME: ${{inputs.TEST_SUITE_NAME }}"
+          echo "BROWSER: ${{ inputs.BROWSER }}"
+      - name: Update Pega DM Task
+        run: |
+          CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
+          authResponse=$(curl --location -g --request POST "${{ inputs.OrchestratorURL }}/PRRestService/oauth2/v1/token" \
+          --header 'Content-Type: application/x-www-form-urlencoded' \
+          --data-urlencode 'client_id=${{ secrets.ID}}' \
+          --data-urlencode 'client_secret=${{ secrets.SECRET}}' \
+          --data-urlencode 'grant_type=client_credentials')
+          echo $authResponse
+          authToken=$(echo $authResponse | jq -j ".access_token")
+          echo $authToken
+          updateTaskResponse=$(curl --location --request PUT "$CallBackURL" \
+            --header "Authorization: Bearer $authToken" \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+              "taskStatus": "Resolved-Completed",
+              "taskInfo": {
+                "outputParameters": [
+                  {
+                    "name": "BuildNumber",
+                    "type": "Text",
+                    "value": "${{ github.run_number }}"
+                  },
+                  {
+                    "name": "GitHubBuildURL",
+                    "type": "Text",
+                    "value": "${{ github.server_url }]/${{ github.repository }}/actions/runs/${{github.run_id }}"
+                  }
+                ]
+              }
+            }')
+          echo "updateTaskResponse: $updateTaskResponse";
