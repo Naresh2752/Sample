@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print all the parameters
-        run: |
+        run: 
           echo "CallBackURL: ${{ inputs.CallBackURL }}"
           echo "OrchestratorURL: ${{ inputs.OrchestratorURL }}"
           echo "PipelineName: ${{ inputs.PipelineName }}"
@@ -32,7 +32,7 @@ jobs:
           echo "BROWSER: ${{ inputs.BROWSER }}"
 
       - name: Update Pega DM Task
-        run: |
+        run: 
           CallBackURL=$(echo "${{ inputs.CallBackURL }}" | sed 's/legacy_tasks/tasks/g')
           authResponse=$(curl --location -g --request POST "${{ inputs.OrchestratorURL }}/PRRestService/oauth2/v1/token" \
             --header 'Content-Type: application/x-www-form-urlencoded' \
