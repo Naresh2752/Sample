@@ -16,7 +16,7 @@ on:
         description: "Automation test suite (testing xml) to be executed"
         required: false
       BROWSER:
-        description: Browser Name
+        description: "Browser Name"
         required: false
 
 jobs:
