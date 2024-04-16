@@ -2,20 +2,20 @@ name: "pega-github-custom-task"
 
 on:
   workflow_dispatch:
-	inputs:
-	  CallBackURL:
+  inputs:
+	CallBackURL:
 	    description: "PDM CallBack URL"
 	    required: true
-	  OrchestratorURL:
-	    description: "URL on which the GithHub task is configured"
+	OrchestratorURL:
+	    description: "URL on which the GithHub task"
 	    required: false
-	  PipelineName:
+	PipelineName:
 	    description: "Pipeline name on which the GithHub task is configured"
 	    required: true
-	  TEST_SUITE_NAME:
+	TEST_SUITE_NAME:
 	    description: "Automation test suite (testing xml) to be executed"
 	    required: false
-	  BROWSER:
+	BROWSER:
 	    description: Browser Name
 	    required: false
 
